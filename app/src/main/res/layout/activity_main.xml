@@ -31,35 +31,43 @@
         app:menu="@menu/bottom_nav_menu" />
 
     <EditText
-        android:id="@+id/first_name"
-        android:layout_width="136dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="246dp"
-        android:layout_marginBottom="384dp"
+        android:id="@+id/first_name_input"
+        android:layout_width="186dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="150dp"
         android:autofillHints="person_name_given"
         android:ems="10"
         android:hint="@string/first_name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/last_name"
+        android:id="@+id/last_name_input"
         android:layout_width="186dp"
         android:layout_height="51dp"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="246dp"
-        android:layout_marginBottom="384dp"
+        android:layout_marginStart="112dp"
         android:autofillHints="person_name_family"
         android:ems="10"
         android:hint="@string/last_name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/first_name_input" />
+
+    <android.support.constraint.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="15dp"
+        android:text="Submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/last_name_input" />
 
 </android.support.constraint.ConstraintLayout>
