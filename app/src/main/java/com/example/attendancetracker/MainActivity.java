@@ -1,6 +1,7 @@
 package com.example.attendancetracker;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +14,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.security.Security;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Todo
  *
  */
+
 public class MainActivity extends AppCompatActivity {
+
+    ArrayList<String> list = new ArrayList<>();
+
     private TextView mTextMessage;
 
     String first_name;
@@ -40,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
+                    list.add("Timothy");
+                    list.add("Huntzinger");
+                    list.add(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+                    SheetsQuickstart sheets = new SheetsQuickstart();
+                    sheets.writeSomething(list);
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
@@ -80,5 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
+
 
 }

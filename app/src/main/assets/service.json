@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "quickstart-1573889444324",
+  "private_key_id": "464744026ff3f9bded2d706e8542017b73027eb5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDqTBC25PhI2y3p\ntyybI+D36M7wjf1XOaVY0TTbddZON8E98AMf5cwOsw1N8LmcK3BrnTvZVCKFgS23\nyBZLQViCuZljeHsTrEGIxi/lHWOxoFuQ2IGsyy43fhVsyduWLKKe/hookHnOSfTU\nI0HwasVJRH116PCtwFSqW+qgL7BRiy1WJ8qtTs1zPnzNuy3AwTPOYaI3zJ/X6vWG\nEZ5pea9VLPWogdY/+yE20Hh3M5YlhIWb2QU9wne4+kyWyduwbfORf3zAcf8HQI1o\nCHU8LhlDB2lEVqqyIZR7XBS7NujHZC9zJsS6LnevXrDAUZYsADqtnW1kTUYvJAZM\nJFX1N28/AgMBAAECggEAW0RgKm6NDQxcGTOia5iRVODaY7hb3HN3Jl7wQSDo5zUu\n0GrDPNSuJXe4EglYtC3zr+fi3Wi5vdmxLmsBzDTbPqj/yFCxWNt798SD+bL2F8ZI\nhObhtKa9DR7PR75mDFy8yERhejW1TRdgCJbnY7iju0Ozv4+K2ZQXJvmBLv8Epu5a\nXizdmZ87DjxjJjOnCersFuOhcZt77TnEqeUsD0ZcnB4yrQNnkPCSJ6+1jVK3mNUe\nsi/eViLOIxuyF7LybXu30w0PmtHepFjBcTACt1F+5vqXTlQVAnD45bQSV59Y6S4n\nTn47oRfbP8mnj8okJFXfvkakvXfagxx8xP5SWoLR+QKBgQD2/JXCBkdZrhtbSOAo\nfveC/tfocbMItqGqFAamfmlytTxLEhMMB8SIPk+vcGWeeJNCcnFrliE1XMBNMpwt\n3I0oLjQRi1mOg00l9pogXjm6olX8cwtaRpK19GAXgcQogVgPMdmq6R9nGYJFEFm4\nSPQ9zvxm1g0Ijrhz1gvjlp3SDQKBgQDy2O5sGniRtVvqISQXPbysq806xOra+ynj\ngrXxbP1TVTweID6Cnhgupz0yBwhR80935Rl/lRts4QlcWF2CqePj1oZ8bSVrwANu\nPhWEIoM5P9HILodlu+k/G79KVNE3vVuNKSD1CpfzdUqptHay/kCK8TJWpYyz9xcw\ndGZekPfPewKBgDgFaK5+oBZuUFQvPnDRA7EZvr1BdNtoGVkre6quB5r2ErvwWJOk\n+2XvxEFF3DbKoJQ0wxclEVk6NYANF7GrUfUoLbVBB0o06/3NZn4rASsdASXmrk+G\nrGZLDLSoQWbyl5eyte13PSE0fwDNSZxsJ8IRPdzRdllXjezwQvgXRKrNAoGBANi8\nFv3QGi8gxymL7mP3q34HzqBWwqwxYM82Bx+y/9vxxDe221NDuZ1ZkNonQJuzJQeC\nJmGhN9rSdMI/8yT8bvEWsuw1lSI3OliXfChzjN35QUcBj8GSFbdHElBKpnayvxSa\n0lkf3UFhOwN+ljllhUD7xsth8NNlAQMzv3FCvIglAoGAczIdzH3bhYpP1pkVBxLA\nIRQZOOzAhLRqGSIeZuuECohje+BpPzSm6JtxZR3hw5RwlQj7K46Ih0/CBCjt8M4D\nhYiYraZQ8a1K/i4RElIvydw2bQz8eYZblyScRCh4lPSymvTmjMRRkipnMMAm7Z0S\nhNh60BZi1YFBVaR2AJQXvZc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "attendance-tracker-user@quickstart-1573889444324.iam.gserviceaccount.com",
+  "client_id": "117507316899584358585",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/attendance-tracker-user%40quickstart-1573889444324.iam.gserviceaccount.com"
+}
