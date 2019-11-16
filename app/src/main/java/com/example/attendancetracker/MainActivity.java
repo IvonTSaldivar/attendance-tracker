@@ -1,16 +1,23 @@
 package com.example.attendancetracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * Todo
@@ -21,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     String first_name;
     String last_name;
+    String URL;
 
     EditText first_name_input;
     EditText last_name_input;
 
     Button submit_button;
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -58,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        Intent Camera = new Intent(this, CameraActivity.class);
+        startActivityForResult(Camera, 0);
+
+
         final String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
         first_name_input = findViewById(R.id.first_name_input);
@@ -74,10 +85,19 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, first_name, Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, last_name, Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, androidId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, URL, Toast.LENGTH_SHORT).show();
             }
 
 
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            URL = data.getStringExtra("URL");
+        }
     }
 
 }
