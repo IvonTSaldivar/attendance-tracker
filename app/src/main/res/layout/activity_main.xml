@@ -55,10 +55,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/first_name_input" />
 
-    <android.support.constraint.Group
-        android:id="@+id/group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/submit_button"

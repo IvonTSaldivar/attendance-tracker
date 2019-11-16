@@ -23,11 +23,19 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.security.Security;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Todo
  *
  */
+
 public class MainActivity extends AppCompatActivity {
+
+    ArrayList<String> list = new ArrayList<>();
+
     private TextView mTextMessage;
 
     String first_name;
@@ -50,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
+                    list.add("Timothy");
+                    list.add("Huntzinger");
+                    list.add(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+                    try {
+                        SheetsQuickstart sheets = new SheetsQuickstart(MainActivity.this.getApplicationContext());
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
@@ -96,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -103,5 +120,6 @@ public class MainActivity extends AppCompatActivity {
             URL = data.getStringExtra("URL");
         }
     }
+
 
 }
