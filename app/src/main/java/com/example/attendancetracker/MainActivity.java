@@ -52,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
                     list.add("Timothy");
                     list.add("Huntzinger");
                     list.add(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-                    SheetsQuickstart sheets = new SheetsQuickstart();
-                    sheets.writeSomething(list);
+                    try {
+                        SheetsQuickstart sheets = new SheetsQuickstart(MainActivity.this.getApplicationContext());
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:

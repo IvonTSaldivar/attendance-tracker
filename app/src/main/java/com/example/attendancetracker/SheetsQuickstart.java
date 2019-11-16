@@ -1,7 +1,9 @@
 package com.example.attendancetracker;
 
-import com.google.api.client.auth.oauth2.Credential;
-import android.app.Service;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.net.Uri;
+import android.os.Environment;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -9,82 +11,107 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
-import java.io.*;
-import java.util.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class SheetsQuickstart {
+    private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart";
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final String TOKENS_DIRECTORY_PATH =  Environment.getExternalStoragePublicDirectory("Documents") + "/tokens";
 
-    private static HttpTransport transport;
-    private static JacksonFactory jsonFactory;
-    private static FileDataStoreFactory dataStoreFactory;
 
-    private static final java.io.File DATA_STORE_DIR = new java.io.File(System.getProperty("user.home"), ".credentials/sheets.googleapis.com.json");
+    /**
+     * Global instance of the scopes required by this quickstart.
+     * If modifying these scopes, delete your previously saved tokens/ folder.
+     */
+    private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
+    private static String CREDENTIALS_FILE_PATH;
 
-    private static List<String> scopes = Arrays.asList(SheetsScopes.SPREADSHEETS);
-    Sheets service;
+    /**
+     * Creates an authorized Credential object.
+     *
+     * @param context
+     * @param HTTP_TRANSPORT The network HTTP Transport.
+     * @return An authorized Credential object.
+     * @throws IOException If the credentials.json file cannot be found.
+     */
 
-    public SheetsQuickstart() {
-        try {
-            transport = GoogleNetHttpTransport.newTrustedTransport();
-            dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
-            jsonFactory = JacksonFactory.getDefaultInstance();
-
-            service = getSheetsService();
-        } catch (Exception e) {
-            // handle exception
-        }
-    }
-
-    public static Credential authorize() throws IOException {
+    private static Credential getCredentials(Context context, final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        File cfile = new File("service.json");
-        cfile.createNewFile();
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(new FileInputStream(cfile)));
+        //InputStream in = context.getAssets().open("service.json");
+        InputStream in = context.getAssets().open("credentials.json");
+        if (in == null) {
+            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+        }
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(
-                        transport, jsonFactory, clientSecrets, scopes)
-                        .setDataStoreFactory(dataStoreFactory)
-                        .setAccessType("offline")
-                        .build();
-        Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
-        return credential;
-    }
-
-    public static Sheets getSheetsService() throws IOException {
-        Credential credential = authorize();
-        return new Sheets.Builder(transport, jsonFactory, credential)
-                .setApplicationName("AttendanceTracker")
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setAccessType("offline")
                 .build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    public void writeSomething(List<String> myData) {
+    /**
+     * Prints the names and majors of students in a sample spreadsheet:
+     * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+     */
+    SheetsQuickstart(Context context) throws IOException, GeneralSecurityException {
+        // Build a new authorized API client service.
+        final NetHttpTransport HTTP_TRANSPORT = new com.google.api.client.http.javanet.NetHttpTransport();
+        final String spreadsheetId = "1-JPOEjVf4MRxgWEKjdbLsNsm_vRVTRtT4ovLHPlHu6A";
+        final String range = "Sheet1!A1:E4";
+        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(context, HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
 
-        try {
-            String id = "1-JPOEjVf4MRxgWEKjdbLsNsm_vRVTRtT4ovLHPlHu6A";
-            String writeRange = "INSERT_SHEET_NAME!A3:E";
 
-            List<List<Object>> writeData = new ArrayList<>();
-//            for (String someData : myData) {
-//                List<Object> dataRow = new ArrayList<>();
-//                dataRow.add(someData);
-//                writeData.add(dataRow);
-//            }
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Thomas");
+        list.add("Engine");
+        list.add("this is an id");
+        List<List<Object>> values = Arrays.asList(
+                Arrays.asList(
+                        // Cell values ...
+                        (Object)"Thomas", (Object)"Engine", (Object) "this is an id"
+                )
+                // Additional rows ...
+        );
 
-            ValueRange vr = new ValueRange().setValues(writeData).setMajorDimension("ROWS");
-            service.spreadsheets().values()
-                    .update(id, writeRange, vr)
-                    .setValueInputOption("RAW")
-                    .execute();
-        } catch (Exception e) {
-            // handle exception
+        ValueRange body = new ValueRange()
+                .setValues(values);
+        AppendValuesResponse result =
+                service.spreadsheets().values().append(spreadsheetId, range, body)
+                        .setValueInputOption("Thomas")
+                        .execute();
+        if (values == null || values.isEmpty()) {
+            System.out.println("No data found.");
+        } else {
+            System.out.println("Name, Major");
+            for (List row : values) {
+                // Print columns A and E, which correspond to indices 0 and 4.
+                System.out.printf("%s, %s\n", row.get(0), row.get(4));
+            }
         }
     }
 }
