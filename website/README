@@ -1,17 +1,11 @@
-This example shows how you can create a QR Code PNG using Javascript and HTML5.
-
-Notes:
----
-This is the heart of my Tab Transmit Safari Extension.
-
-You can downloaded it from:
-http://ticklespace.com/tab-transmit-safari-extension
-or
-https://extensions.apple.com/ 
-Tab Transmit is listed under Productivity.
+The javascript is being used under the MIT license. Credit given below.
 
 
-Author: 
+
+
+
+
+Author of javascript: 
 ---
 Amanuel Tewolde / TickleSpace - www.ticklespace.com
 
