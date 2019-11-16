@@ -1,6 +1,7 @@
 package com.example.attendancetracker;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
@@ -57,11 +58,14 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        final String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
         first_name_input = findViewById(R.id.first_name_input);
         last_name_input = findViewById(R.id.last_name_input);
 
         submit_button =  findViewById(R.id.submit_button);
         submit_button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 first_name = first_name_input.getText().toString();
@@ -69,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, first_name, Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, last_name, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, androidId, Toast.LENGTH_SHORT).show();
             }
+
+
         });
     }
 
