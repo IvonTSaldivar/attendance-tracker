@@ -87,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     0);
         }
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.VIBRATE},
+                    0);
+        }
+
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Intent Camera = new Intent(this, CameraActivity.class);
@@ -121,7 +127,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0) {
-            URL = data.getStringExtra("URL");
+            try {
+                URL = data.getStringExtra("URL");
+            } catch (Exception e){
+                URL = "FAKE NEWS";
+            }
         }
     }
 
