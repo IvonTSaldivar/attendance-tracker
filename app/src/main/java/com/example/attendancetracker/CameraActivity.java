@@ -52,14 +52,12 @@ public class CameraActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(CameraActivity.this,
                             new String[]{Manifest.permission.CAMERA},
                             0);
-
                 }
                 try {
                     cameraSource.start(surfaceHolder);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
