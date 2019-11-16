@@ -2,7 +2,9 @@ package com.example.attendancetracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.provider.Settings;
+
 import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
@@ -14,9 +16,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.gms.vision.barcode.Barcode;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
